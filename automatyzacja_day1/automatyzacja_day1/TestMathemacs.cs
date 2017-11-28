@@ -83,10 +83,10 @@ namespace automatyzacja_day1
             var math = new Matematyka();
 
             // act - wwykonanie testu
-            double result = math.Multiply(33, 8.22);
+            double result = math.Multiply(101, 4.5);
 
             // assert - sprawdzenie wyników
-            Assert.Equal(271.26, result);
+            Assert.Equal(454.5, result);
         }
         [Fact]
         public void Method_divide_returns_quotient_of_given_values()
@@ -113,6 +113,44 @@ namespace automatyzacja_day1
 
             // assert - sprawdzenie wyników
             Assert.Equal(9.090909090909091, result);
+        }
+
+        [Theory]
+        [InlineData(10, 20, 30)]
+        [InlineData(1, 2, 3)]
+        [InlineData(22, 11, 33)]
+        [InlineData(0, 0, 0)]
+
+        public void TheoryExample(double x, double y, double expected)
+        {
+            // arrange - przygotowanie
+            //TestMathemacs math = new TestMathemacs();
+            var math = new Matematyka();
+
+            // act - wwykonanie testu
+            double result = math.Add(x, y);
+
+            // assert - sprawdzenie wyników
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(10, 2, 20)]
+        [InlineData(1, 2, 2)]
+        [InlineData(22, 11, 242)]
+        [InlineData(0, 0, 0)]
+
+        public void TheoryExamplemultipli(double x, double y, double expected)
+        {
+            // arrange - przygotowanie
+            //TestMathemacs math = new TestMathemacs();
+            var math = new Matematyka();
+
+            // act - wwykonanie testu
+            double result = math.Multiply(x, y);
+
+            // assert - sprawdzenie wyników
+            Assert.Equal(expected, result);
         }
     }
 }

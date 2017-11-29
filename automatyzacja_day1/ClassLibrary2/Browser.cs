@@ -22,6 +22,8 @@ namespace PageobjectsTest
             return driver.FindElements(By.XPath(xpath));
         }
 
+
+
         internal static void NavigateTo(string url)
         {
             driver.Navigate().GoToUrl(url);
@@ -30,6 +32,11 @@ namespace PageobjectsTest
         internal static void Close()
         {
             driver.Quit();
+        }
+
+        internal static IWebElement FindelementById(string id)
+        {
+            return driver.FindElement(By.Id(id));
         }
     }
 }

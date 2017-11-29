@@ -10,30 +10,32 @@ namespace SeleniumTests
 {
     public class Example : IDisposable
     {
+        private const string SearchTextBoxId = "lst-ib";
         private IWebDriver driver;
         private StringBuilder verificationErrors;
-        private string baseURL;
-        private bool acceptNextAlert = true;
+        private const string google = "https://www.google.pl/";
+        //private bool acceptNextAlert = true;
+        private const string TextToSearch = "codesprinters";
+        private const string PageTitle = "Code Sprinters -";
 
         public Example()
         {
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
          //   driver.Manage().Timeouts()
-            baseURL = "https://www.google.pl/";
-            verificationErrors = new StringBuilder();
+             verificationErrors = new StringBuilder();
         }
 
 
 
         [Fact]
-        public void TheExampleTest()
+        public void NavigatingToCodeSprintersSi()
         {
-            driver.Navigate().GoToUrl(baseURL + "/?gfe_rd=cr&dcr=0&ei=4FsdWtrJL8mv8wei1rjgAw");
-            driver.FindElement(By.Id("lst-ib")).Clear();
-            driver.FindElement(By.Id("lst-ib")).SendKeys("codesprinters");//znajduje pierwszy element na stronie
-            driver.FindElement(By.Id("lst-ib")).Submit();
-            driver.FindElement(By.LinkText("Code Sprinters -")).Click();
+            GoToGoogle();
+
+            Search(TextToSearch);
+            GoToSearchResultByPageTitle();
+
             //// ERROR: Caught exception [ERROR: Unsupported command [selectWindow | name=@color | ]]
 
             var element = driver.FindElement(By.LinkText("Poznaj nasze podejście"));
@@ -50,7 +52,7 @@ namespace SeleniumTests
 
             driver.FindElement(By.LinkText("Poznaj nasze podejście")).Click();
 
-            System.Threading.Thread.Sleep(2);//czeka zawsze 2 sekundy
+            //System.Threading.Thread.Sleep(2);//czeka zawsze 2 sekundy
 
 
 
@@ -63,9 +65,34 @@ namespace SeleniumTests
                 .Where(tag => tag.Text == "WIEDZA NA PIERWSZYM MIEJSCU"));
             //wyszukuje tagi o nazwie h2, w zwróconej kolekcji tagów wyszukuje tekstu XXX
             //single -> sprawdza czy w zwróconej kolekcji jest dokładnie 1 element
-            
+
         }
-            protected void waitForElementPresent(IWebElement by, int seconds)
+
+        private void GoToSearchResultByPageTitle()
+        {
+            driver.FindElement(By.LinkText(PageTitle)).Click();
+        }
+
+        private void Search(string TextToSearch)
+        {
+            var searchBox = GetSearchBox();
+
+            searchBox.Clear();
+            searchBox.SendKeys(TextToSearch);//znajduje pierwszy element na stronie
+            searchBox.Submit();
+        }
+
+        private IWebElement GetSearchBox()
+        {
+            return driver.FindElement(By.Id(SearchTextBoxId));
+        }
+
+        private void GoToGoogle()
+        {
+            driver.Navigate().GoToUrl(google);            
+        }
+
+        protected void waitForElementPresent(IWebElement by, int seconds)
             {
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
                 wait.Until(ExpectedConditions.ElementToBeClickable(by));

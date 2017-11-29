@@ -5,6 +5,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using Xunit;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace SeleniumTests
 {
@@ -17,6 +18,9 @@ namespace SeleniumTests
         //private bool acceptNextAlert = true;
         private const string TextToSearch = "codesprinters";
         private const string PageTitle = "Code Sprinters -";
+        private const string LinkTextToFind = "Poznaj nasze podejście";
+        private const string CookieAccept = "Akceptuję";
+       
 
         public Example()
         {
@@ -38,17 +42,16 @@ namespace SeleniumTests
 
             //// ERROR: Caught exception [ERROR: Unsupported command [selectWindow | name=@color | ]]
 
-            var element = driver.FindElement(By.LinkText("Poznaj nasze podejście"));
+            var element = driver.FindElement(By.LinkText(LinkTextToFind));
             Assert.NotNull(element);
-            driver.FindElement(By.LinkText("Akceptuję")).Click();
+            CookieAcceptOnPage(); ;
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(2)); //czeka 5 sekund aż nie zniknie
             wait.Until(ExpectedConditions.InvisibilityOfElementWithText(By.LinkText("Akceptuję"), "Akceptuję"));
 
             waitForElementPresent(By.LinkText("Poznaj nasze podejście"), 0);
 
-            var elements = driver.FindElements(By.LinkText("Poznaj nasze podejście"));
-            Assert.Single(elements);
+            Assert.Single(GetWebElementsLinks());
 
             driver.FindElement(By.LinkText("Poznaj nasze podejście")).Click();
 
@@ -66,6 +69,16 @@ namespace SeleniumTests
             //wyszukuje tagi o nazwie h2, w zwróconej kolekcji tagów wyszukuje tekstu XXX
             //single -> sprawdza czy w zwróconej kolekcji jest dokładnie 1 element
 
+        }
+
+        private void CookieAcceptOnPage()
+        {
+            driver.FindElement(By.LinkText(CookieAccept)).Click();
+        }
+
+        private ReadOnlyCollection<IWebElement> GetWebElementsLinks()
+        {
+            return driver.FindElements(By.LinkText(LinkTextToFind));
         }
 
         private void GoToSearchResultByPageTitle()

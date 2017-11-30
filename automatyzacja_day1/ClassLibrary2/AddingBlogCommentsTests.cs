@@ -20,9 +20,9 @@ namespace PageobjectsTest
             //otworz pierwszą notkę
             NotePage.AddComment(new Comment
             {
-                Text = "cos tam 1",
-                Mail = "test@cośtam.pl",
-                User = "coś tam 3"
+                Text = "jr says: testowy komentarz dla firefox'a",
+                Mail = "jr@zayebista.pl",
+                User = "junior by jr"
             });
             //dodaj komentarz
 

@@ -16,15 +16,15 @@ namespace PageobjectsTest
             email.Click();
             email.SendKeys(testData.Mail);
 
-            var nameLabel = Browser.FindByXpath("//label[@for='author']").First();
+            var nameLabel = Browser.FindelementById("author");
                 nameLabel.Click();
+            nameLabel.SendKeys(testData.User);
+            
 
-            Thread.Sleep(5000);
+            var SubmitButton = Browser.FindelementById("comment-submit");
+            SubmitButton.Click();
 
-
-            var name = Browser.FindelementById("name");
-            name.Click();
-            name.SendKeys(testData.User);
+            //Thread.Sleep(5000);
         }
     }
 }

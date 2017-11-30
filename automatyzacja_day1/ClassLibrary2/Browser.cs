@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace PageobjectsTest
 
         static Browser()
         {
-            driver = new ChromeDriver();
+            driver = new FirefoxDriver();
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(500);
         }

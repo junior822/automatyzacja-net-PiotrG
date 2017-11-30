@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 
@@ -12,6 +14,8 @@ namespace PageobjectsTest
             commentBox.Click();
             commentBox.SendKeys(testData.Text);
 
+            var emailLabel = Browser.FindByXpath("//label[@for='email']").First();
+            emailLabel.Click();
             var email = Browser.FindelementById("email");
             email.Click();
             email.SendKeys(testData.Mail);
@@ -26,5 +30,7 @@ namespace PageobjectsTest
 
             //Thread.Sleep(5000);
         }
+
+
     }
 }

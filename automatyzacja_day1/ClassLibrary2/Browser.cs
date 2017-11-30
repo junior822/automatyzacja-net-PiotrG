@@ -4,6 +4,7 @@ using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Xunit;
 
 namespace PageobjectsTest
 {
@@ -38,6 +39,11 @@ namespace PageobjectsTest
         internal static IWebElement FindelementById(string id)
         {
             return driver.FindElement(By.Id(id));
+        }
+
+        internal static string PageSource()
+        {
+            return driver.PageSource;
         }
     }
 }

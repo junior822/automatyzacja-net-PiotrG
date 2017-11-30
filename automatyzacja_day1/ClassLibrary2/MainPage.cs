@@ -5,7 +5,7 @@ namespace PageobjectsTest
 {
     internal class MainPage
     {
-        private static string url = "https://autotestdotnet.wordpress.com/";
+        private static string url = "https://autotestdotnet.wordpress.com/";        
         internal static void GoTo()
         {
             Browser.NavigateTo(url);
